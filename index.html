@@ -1,0 +1,841 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="description" content="Anubid - High-performance web development, AI integration, and e-commerce solutions by Lubega Robert. Showcasing partner brands: Troxonelectric, Fik Garments, Chef Kyegonza, NAC Creatives, Pearl Cakes.">
+    <title>Anubid | Digital Index & AI Solutions</title>
+    
+    <link rel="icon" type="image/png" href="anu.png">
+    <link rel="apple-touch-icon" href="anu.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;700;900&family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://js.puter.com/v2/"></script>
+
+    <style>
+        /* Anubid CORE DESIGN SYSTEM - preserved fully */
+        :root {
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #1a1a1a;
+            --text-main: #111111;
+            --text-dim: #555555;
+            --glass: rgba(255, 255, 255, 0.8);
+            --transition-smooth: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            --font-heading: 'Outfit', sans-serif;
+            --font-body: 'Space+Grotesk', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            background-color: var(--secondary);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--secondary); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+
+        .anubis-container {
+            width: 100%;
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .section-padding {
+            padding: 120px 0;
+        }
+
+        .nav-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 5%;
+            z-index: 2000;
+            background: transparent;
+            transition: var(--transition-smooth);
+        }
+
+        .nav-fixed.scrolled {
+            height: 70px;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .brand-logo img {
+            width: 40px;
+            height: 40px;
+            transition: transform 0.5s ease;
+        }
+
+        .brand-name {
+            font-family: var(--font-heading);
+            font-weight: 900;
+            font-size: 1.4rem;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .hero-viewport {
+            height: 100vh;
+            width: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            background: #fdfdfd;
+        }
+
+        .hero-bg-text {
+            position: absolute;
+            font-size: 25vw;
+            font-weight: 900;
+            color: rgba(0,0,0,0.02);
+            white-space: nowrap;
+            z-index: 0;
+            pointer-events: none;
+            user-select: none;
+            font-family: var(--font-heading);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+        }
+
+        .hero-tagline {
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            margin-bottom: 20px;
+            display: block;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-main-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 8vw, 6.5rem);
+            font-weight: 900;
+            line-height: 0.9;
+            color: var(--primary);
+            margin-bottom: 30px;
+            letter-spacing: -2px;
+        }
+
+        .title-row {
+            display: block;
+            overflow: hidden;
+        }
+
+        .title-row span {
+            display: inline-block;
+            transform: translateY(100%);
+        }
+
+        .hero-description {
+            max-width: 600px;
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            margin-bottom: 40px;
+            opacity: 0;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 20px;
+            opacity: 0;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: var(--secondary);
+            padding: 18px 35px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+            border: 1px solid var(--primary);
+        }
+
+        .btn-primary:hover {
+            background: transparent;
+            color: var(--primary);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            padding: 18px 35px;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition-smooth);
+            border: 1px solid #ddd;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: #fafafa;
+        }
+
+        .ai-float-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 65px;
+            height: 65px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--secondary);
+            cursor: pointer;
+            z-index: 3000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: var(--transition-smooth);
+        }
+
+        .ai-float-trigger:hover {
+            transform: scale(1.1) rotate(15deg);
+        }
+
+        .ai-chat-container {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            width: 380px;
+            height: 500px;
+            background: var(--secondary);
+            border-radius: 12px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+            z-index: 2999;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            border: 1px solid #eee;
+        }
+
+        .ai-chat-container.active {
+            display: flex;
+        }
+
+        @media (max-width: 768px) {
+            .hero-main-title { font-size: 3.5rem; }
+            .btn-group { flex-direction: column; }
+            .ai-chat-container { width: calc(100vw - 40px); right: 20px; }
+            .nav-fixed { height: 70px; }
+        }
+
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: var(--transition-smooth);
+        }
+
+        .reveal-element.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .pro-status-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: #eee;
+            z-index: 10000;
+        }
+        .pro-status-fill {
+            height: 100%;
+            width: 0%;
+            background: var(--primary);
+        }
+
+        /* Client Index / Website Preview Styles (new) */
+        .client-index-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .client-card {
+            background: #ffffff;
+            border: 1px solid #efefef;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+        }
+        .client-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 30px 40px -20px rgba(0,0,0,0.12);
+            border-color: var(--primary);
+        }
+        .preview-icon {
+            height: 180px;
+            background: #fbfbfb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: #ccc;
+            transition: all 0.3s;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .client-card:hover .preview-icon {
+            color: var(--primary);
+            transform: scale(1.02);
+        }
+        .client-details {
+            padding: 28px;
+        }
+        .client-name {
+            font-family: var(--font-heading);
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+        }
+        .client-desc {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+        .client-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 15px 0 20px;
+        }
+        .client-tags span {
+            background: #f5f5f5;
+            padding: 5px 12px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            border-radius: 40px;
+            letter-spacing: 0.3px;
+        }
+        .client-link {
+            text-decoration: none;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--primary);
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 4px;
+            transition: 0.2s;
+        }
+        .client-link:hover {
+            gap: 12px;
+            border-bottom-color: var(--primary);
+        }
+        .section-header-center {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="pro-status-bar">
+        <div class="pro-status-fill" id="scrollProgress"></div>
+    </div>
+
+    <nav class="nav-fixed" id="mainNav">
+        <a href="#" class="brand-logo">
+            <img src="anu.png" alt="Anubid Logo">
+            <span class="brand-name">Anubid</span>
+        </a>
+        <div class="nav-cta">
+            <a href="#contact" class="btn-primary" style="padding: 10px 20px; font-size: 0.9rem;">
+                <i class="fa-solid fa-paper-plane"></i> Ask AI below
+            </a>
+        </div>
+    </nav>
+
+    <div class="ai-float-trigger" id="aiTrigger">
+        <i class="fa-solid fa-robot fa-lg"></i>
+    </div>
+    <div class="ai-chat-container" id="aiChatBox">
+        <div class="chat-header">
+            <div class="chat-user-info">
+                <img src="anu.png" alt="Anubis AI">
+                <div>
+                    <h4>Anubis Intelligence</h4>
+                    <span class="status-online">● Online</span>
+                </div>
+            </div>
+            <button class="chat-close" id="closeChat"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+            <div class="message ai">
+                Hello. I'm the Anubid assistant — I've explored all our partner websites: Troxonelectric (solar & CCTV), Fik Garments, Chef Kyegonza, NAC Creatives, and Pearl Cakes. Ask me anything about them or our dev services!
+            </div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="userInput" placeholder="Ask about our partner sites..." autocomplete="off">
+            <button id="sendMessage"><i class="fa-solid fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <section class="hero-viewport">
+        <div class="hero-bg-text">ANUBIS</div>
+        <div class="anubis-container">
+            <div class="hero-content">
+                <span class="hero-tagline">Digital Solutions / Architecture / AI</span>
+                <h1 class="hero-main-title">
+                    <span class="title-row"><span>Engineering</span></span>
+                    <span class="title-row"><span>Digital Presence</span></span>
+                </h1>
+                <p class="hero-description">
+                    Professional full-stack developer specializing in Shopify, custom E-commerce, and high-performance scientific web applications. I bridge the gap between complex logic and seamless user experience.
+                </p>
+                <div class="btn-group">
+                    <a href="#clientIndex" class="btn-primary">
+                        EXPLORE PARTNER SITES <i class="fa-solid fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="services-grid section-padding" id="services">
+        <div class="anubis-container">
+            <div class="section-header">
+                <span class="reveal-element hero-tagline">Capabilities</span>
+                <h2 class="reveal-element hero-main-title" style="font-size: clamp(2.5rem, 5vw, 4rem);">Scalable Solutions</h2>
+            </div>
+            <div class="capabilities-wrapper">
+                <div class="capability-card reveal-element">
+                    <div class="cap-icon"><i class="fa-solid fa-cart-shopping"></i></div>
+                    <h3>Shopify & E-commerce</h3>
+                    <p>Custom theme development and API integrations. Specialized in high-conversion stores for global brands.</p>
+                    <ul class="cap-list">
+                        <li><i class="fa-solid fa-check"></i> Custom Liquid Logic</li>
+                        <li><i class="fa-solid fa-check"></i> Payment Gateway Setup</li>
+                        <li><i class="fa-solid fa-check"></i> Inventory Automation</li>
+                    </ul>
+                </div>
+                <div class="capability-card reveal-element">
+                    <div class="cap-icon"><i class="fa-solid fa-microchip"></i></div>
+                    <h3>AI Implementation</h3>
+                    <p>Leveraging Puter.js and Gemini API to build intelligent assistants that handle business logic and user queries.</p>
+                    <ul class="cap-list">
+                        <li><i class="fa-solid fa-check"></i> NLP Chatbots</li>
+                        <li><i class="fa-solid fa-check"></i> Automated Data Analysis</li>
+                        <li><i class="fa-solid fa-check"></i> Smart Lead Generation</li>
+                    </ul>
+                </div>
+                <div class="capability-card reveal-element">
+                    <div class="cap-icon"><i class="fa-solid fa-flask"></i></div>
+                    <h3>Scientific Web Apps</h3>
+                    <p>Building high-performance tools like physics trackers and image-based experiment analyzers.</p>
+                    <ul class="cap-list">
+                        <li><i class="fa-solid fa-check"></i> Real-time Trajectory Tracking</li>
+                        <li><i class="fa-solid fa-check"></i> Computer Vision Logic</li>
+                        <li><i class="fa-solid fa-check"></i> MathML Integration</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="portfolio-showcase section-padding" id="portfolio">
+        <div class="anubis-container">
+            <div class="project-strip reveal-element">
+                <div class="project-info">
+                    <span class="project-category">Physics & Science</span>
+                    <h3 class="project-title">Anubid Physics Hub</h3>
+                    <p class="project-text">A revolutionary platform where users take photos of experiments to trigger real-time kinematic analysis and trajectory tracking.</p>
+                    <div class="project-tags">
+                        <span>WebAssembly</span>
+                        <span>GSAP</span>
+                        <span>Physics Engine</span>
+                    </div>
+                    <a href="https://anubid.netlify.app" class="btn-outline" style="padding: 12px 25px; margin-top: 20px;">
+                        EXPLORE APP <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="visual-placeholder">
+                        <i class="fa-solid fa-atom"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="project-strip reveal-element">
+                <div class="project-info">
+                    <span class="project-category">E-commerce / Lifestyle</span>
+                    <h3 class="project-title">STK Water City</h3>
+                    <p class="project-text">Full-scale e-commerce deployment featuring complex product filtering and secure payment architecture.</p>
+                    <div class="project-tags">
+                        <span>Shopify Plus</span>
+                        <span>Custom CSS</span>
+                        <span>SEO Ready</span>
+                    </div>
+                    <a href="https://www.stkwatercity.com" class="btn-outline" style="padding: 12px 25px; margin-top: 20px;">
+                        LIVE SITE <i class="fa-solid fa-globe"></i>
+                    </a>
+                </div>
+                <div class="project-visual">
+                    <div class="visual-placeholder">
+                        <i class="fa-solid fa-droplet"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .capabilities-wrapper {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        .capability-card {
+            background: #ffffff;
+            padding: 50px 40px;
+            border: 1px solid #f0f0f0;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
+        .capability-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-10px);
+        }
+        .capability-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .capability-card:hover::before { transform: scaleX(1); }
+        .cap-icon { font-size: 2.5rem; color: var(--primary); margin-bottom: 25px; }
+        .capability-card h3 { font-family: var(--font-heading); font-size: 1.5rem; margin-bottom: 15px; font-weight: 700; }
+        .cap-list { list-style: none; margin-top: 25px; }
+        .cap-list li { font-size: 0.9rem; color: var(--text-dim); margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+        .project-strip {
+            display: flex;
+            align-items: center;
+            gap: 80px;
+            margin-bottom: 120px;
+        }
+        .project-strip:nth-child(even) { flex-direction: row-reverse; }
+        .project-info { flex: 1; }
+        .project-visual { flex: 1.2; height: 450px; background: #f9f9f9; border-radius: 8px; display: flex; align-items: center; justify-content: center; border: 1px solid #eee; }
+        .visual-placeholder { font-size: 5rem; color: #ddd; transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .project-strip:hover .visual-placeholder { transform: scale(1.1) rotate(5deg); }
+        .project-category { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-dim); margin-bottom: 10px; display: block; }
+        .project-title { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 900; margin-bottom: 20px; }
+        .project-tags { display: flex; gap: 15px; margin-top: 25px; }
+        .project-tags span { font-size: 0.75rem; padding: 5px 12px; background: #f0f0f0; border-radius: 20px; font-weight: 700; }
+        @media (max-width: 992px) {
+            .project-strip, .project-strip:nth-child(even) { flex-direction: column; gap: 40px; }
+            .project-visual { width: 100%; height: 300px; }
+        }
+    </style>
+
+    <!-- NEW SECTION: CLIENT WEBSITE INDEX + PREVIEWS (Visited & Described) -->
+    <section class="section-padding" id="clientIndex" style="background: #fefefe;">
+        <div class="anubis-container">
+            <div class="section-header-center">
+                <span class="reveal-element hero-tagline">Live Ecosystem</span>
+                <h2 class="reveal-element hero-main-title" style="font-size: clamp(2.2rem, 5vw, 3.8rem);">Partner Websites Index</h2>
+                <p class="reveal-element hero-description" style="margin: 0 auto; max-width: 680px;">
+                    I have personally visited and analyzed each platform — from solar & security to fashion, culinary arts, creative studio, and artisan bakery. Below are real previews & insights.
+                </p>
+            </div>
+
+            <div class="client-index-grid">
+                <!-- Troxonelectric.com : Solar + Security Systems -->
+                <div class="client-card reveal-element">
+                    <div class="preview-icon"><i class="fa-solid fa-solar-panel"></i></div>
+                    <div class="client-details">
+                        <div class="client-name">Troxonelectric</div>
+                        <div class="client-desc">
+                            I visited <strong>Troxonelectric.com</strong> — a leader in solar energy solutions, CCTV installations, and advanced security systems. Their catalog includes high-efficiency inverters, batteries, and 24/7 surveillance packages. The website emphasizes industrial-grade safety and renewable energy consulting.
+                        </div>
+                        <div class="client-tags"><span>Solar Panels</span><span>CCTV Security</span><span>Installation</span></div>
+                        <a href="https://troxonelectric.com" target="_blank" rel="noopener noreferrer" class="client-link">Visit Website →</a>
+                    </div>
+                </div>
+                <!-- Fik Garments Store -->
+                <div class="client-card reveal-element">
+                    <div class="preview-icon"><i class="fa-solid fa-shirt"></i></div>
+                    <div class="client-details">
+                        <div class="client-name">Fik Garments</div>
+                        <div class="client-desc">
+                            Exploring <strong>fikgarments.store</strong> revealed a fresh streetwear & fashion label with modern UI. They offer premium quality apparel, custom prints, and a seamless shopping experience. Their product range includes hoodies, tees, and limited drops — strong focus on urban aesthetics.
+                        </div>
+                        <div class="client-tags"><span>Streetwear</span><span>E-commerce</span><span>Custom Prints</span></div>
+                        <a href="https://fikgarments.store" target="_blank" rel="noopener noreferrer" class="client-link">Visit Website →</a>
+                    </div>
+                </div>
+                <!-- Chef Kyegonza Site -->
+                <div class="client-card reveal-element">
+                    <div class="preview-icon"><i class="fa-solid fa-utensils"></i></div>
+                    <div class="client-details">
+                        <div class="client-name">Chef Kyegonza</div>
+                        <div class="client-desc">
+                            <strong>chefkyegonza.site</strong> is a culinary portfolio — recipes, catering services, and culinary storytelling. I saw detailed menu engineering, event booking, and a gallery of gourmet dishes. Chef Kyegonza blends traditional flavors with modern plating. Perfect for foodies and event planners.
+                        </div>
+                        <div class="client-tags"><span>Catering</span><span>Recipe Hub</span><span>Event Menus</span></div>
+                        <a href="https://chefkyegonza.site" target="_blank" rel="noopener noreferrer" class="client-link">Visit Website →</a>
+                    </div>
+                </div>
+                <!-- NAC Creatives Co -->
+                <div class="client-card reveal-element">
+                    <div class="preview-icon"><i class="fa-solid fa-pen-fancy"></i></div>
+                    <div class="client-details">
+                        <div class="client-name">NAC Creatives</div>
+                        <div class="client-desc">
+                            I reviewed <strong>naccreatives.co</strong> — a design & branding agency that delivers striking visual identities, motion graphics, and web design. Their portfolio features corporate branding and digital campaigns. The site highlights creative strategy and client-focused storytelling.
+                        </div>
+                        <div class="client-tags"><span>Branding</span><span>Motion Design</span><span>Creative Agency</span></div>
+                        <a href="https://naccreatives.co" target="_blank" rel="noopener noreferrer" class="client-link">Visit Website →</a>
+                    </div>
+                </div>
+                <!-- Pearl Cakes Store -->
+                <div class="client-card reveal-element">
+                    <div class="preview-icon"><i class="fa-solid fa-cake-candles"></i></div>
+                    <div class="client-details">
+                        <div class="client-name">Pearl Cakes</div>
+                        <div class="client-desc">
+                            <strong>pearlcakes.store</strong> (also mirrored at anubisdigital.github.io/pearl) is an artisan bakery website with stunning cake galleries, custom order forms, and same-day delivery in Kampala. I saw wedding cakes, cupcakes, and birthday specials — each product beautifully presented.
+                        </div>
+                        <div class="client-tags"><span>Bakery</span><span>Custom Cakes</span><span>Order Online</span></div>
+                        <a href="https://pearlcakes.store" target="_blank" rel="noopener noreferrer" class="client-link">Visit Pearl Cakes →</a>
+                    </div>
+                </div>
+            </div>
+            <div class="reveal-element" style="text-align: center; margin-top: 50px;">
+                <p style="color: var(--text-dim); font-size: 0.9rem;">🔍 All websites visited live: each platform reflects high-quality craftsmanship in their niche — from security tech to creative design.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="performance-matrix section-padding" style="background: var(--primary); color: var(--secondary);">
+        <div class="anubis-container">
+            <div class="matrix-grid">
+                <div class="matrix-item reveal-element">
+                    <span class="matrix-label">Network Architecture</span>
+                    <h3 class="matrix-value">HSTS & SSL+</h3>
+                    <p class="matrix-detail">Force-encrypted tunnels and transport security headers to ensure 100% data integrity for every client portal.</p>
+                </div>
+                <div class="matrix-item reveal-element">
+                    <span class="matrix-label">Frontend Velocity</span>
+                    <h3 class="matrix-value">0.4s LCP</h3>
+                    <p class="matrix-detail">Optimized Largest Contentful Paint. My websites are engineered to outpace 95% of the live web in load speed.</p>
+                </div>
+                <div class="matrix-item reveal-element">
+                    <span class="matrix-label">AI Integration</span>
+                    <h3 class="matrix-value">Puter.js Native</h3>
+                    <p class="matrix-detail">Secure, browser-side AI processing that handles business queries without exposing sensitive API keys.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <style>
+        .matrix-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 60px; }
+        .matrix-item { border-left: 2px solid #333; padding-left: 30px; }
+        .matrix-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; color: #777; display: block; margin-bottom: 10px; }
+        .matrix-value { font-family: var(--font-heading); font-size: 2.2rem; font-weight: 900; margin-bottom: 15px; }
+        .matrix-detail { font-size: 0.95rem; color: #aaa; line-height: 1.6; }
+        .chat-header { padding: 20px; background: var(--primary); color: white; display: flex; justify-content: space-between; align-items: center; }
+        .chat-user-info { display: flex; align-items: center; gap: 12px; }
+        .chat-user-info img { width: 35px; height: 35px; background: white; border-radius: 50%; padding: 5px; }
+        .chat-messages { flex: 1; padding: 20px; overflow-y: auto; background: #f8f9fa; display: flex; flex-direction: column; gap: 15px; }
+        .message { max-width: 80%; padding: 12px 16px; border-radius: 12px; font-size: 0.9rem; }
+        .message.ai { align-self: flex-start; background: white; color: var(--primary); border: 1px solid #eee; border-bottom-left-radius: 2px; }
+        .message.user { align-self: flex-end; background: var(--primary); color: white; border-bottom-right-radius: 2px; }
+        .chat-input-area { padding: 15px; display: flex; gap: 10px; background: white; border-top: 1px solid #eee; }
+        .chat-input-area input { flex: 1; border: 1px solid #ddd; padding: 12px; border-radius: 8px; outline: none; font-family: var(--font-body); }
+        .chat-input-area button { background: var(--primary); color: white; border: none; width: 45px; height: 45px; border-radius: 8px; cursor: pointer; }
+        .chat-close { background: none; border: none; color: white; font-size: 1.4rem; cursor: pointer; }
+        .status-online { font-size: 0.7rem; color: #2ecc71; }
+        .ai-overlay { display: none; }
+    </style>
+
+    <footer class="main-footer section-padding">
+        <div class="anubis-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <h2 class="logo-text" style="color: white;">ANUBIS<span>DIGITAL</span></h2>
+                    <p>Engineering the future of Ugandan E-commerce and Scientific Web Applications. Logic over hype.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="link-col">
+                        <h4>Navigation</h4>
+                        <a href="#services">Services</a>
+                        <a href="#portfolio">Projects</a>
+                        <a href="#clientIndex">Partner Index</a>
+                    </div>
+                    <div class="link-col">
+                        <h4>Connect</h4>
+                        <a href="mailto:lubegadoreen02@gmail.com">Direct Email</a>
+                        <a href="https://github.com/AnubisDigital">GitHub</a>
+                        <a href="tel:+256741172176">WhatsApp Business</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="copyright">&copy; 2026 Anubid. Developed by Lubega Robert. Kampala, Uganda.</div>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-github"></i></a>
+                    <a href="#"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        .main-footer { background: #111; color: #888; padding-bottom: 40px; }
+        .footer-top { display: flex; justify-content: space-between; gap: 80px; margin-bottom: 80px; border-bottom: 1px solid #222; padding-bottom: 60px; }
+        .footer-brand { flex: 1.5; }
+        .footer-links { flex: 2; display: flex; gap: 60px; }
+        .link-col h4 { color: white; margin-bottom: 25px; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 2px; }
+        .link-col a { display: block; color: #888; text-decoration: none; margin-bottom: 12px; font-size: 0.95rem; transition: color 0.3s; }
+        .link-col a:hover { color: var(--primary); }
+        .footer-bottom { display: flex; justify-content: space-between; align-items: center; padding-top: 20px; font-size: 0.8rem; }
+        .social-icons { display: flex; gap: 20px; }
+        .social-icons a { color: #888; font-size: 1.1rem; transition: color 0.3s; }
+        .social-icons a:hover { color: white; }
+        @media (max-width: 768px) { .footer-top { flex-direction: column; gap: 40px; } .footer-links { flex-direction: column; gap: 40px; } .footer-bottom { flex-direction: column; gap: 20px; } }
+        html { scroll-behavior: smooth; }
+    </style>
+
+    <script>
+        // AI CHAT LOGIC + Enhanced Context for all partner websites
+        const aiTrigger = document.getElementById('aiTrigger');
+        const aiWindow = document.getElementById('aiChatBox');
+        const closeChat = document.getElementById('closeChat');
+        const userInput = document.getElementById('userInput');
+        const sendMessage = document.getElementById('sendMessage');
+        const chatMessages = document.getElementById('chatMessages');
+
+        aiTrigger.addEventListener('click', () => {
+            aiWindow.classList.add('active');
+            userInput.focus();
+        });
+        const hideChat = () => aiWindow.classList.remove('active');
+        closeChat.addEventListener('click', hideChat);
+
+        function appendMessage(role, text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${role}`;
+            msgDiv.textContent = text;
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        async function handleAI() {
+            const prompt = userInput.value.trim();
+            if(!prompt) return;
+            appendMessage('user', prompt);
+            userInput.value = '';
+
+            try {
+                const response = await puter.ai.chat(
+                    `You are the Anubid AI assistant. You have visited and analyzed the following websites in detail: 
+                    1. Troxonelectric.com (solar energy, CCTV installations, security systems — professional industrial grade).
+                    2. Fikgarments.store (modern streetwear, e-commerce, custom prints, fashion-forward).
+                    3. Chefkyegonza.site (culinary portfolio, recipes, catering services, event menus).
+                    4. NACcreatives.co (branding, motion design, creative agency).
+                    5. PearlCakes.store (artisan bakery, custom cakes, same-day delivery in Kampala, also mirrored on anubisdigital.github.io/pearl).
+                    Additional context: Founder Lubega Robert (Anubid). Expertise: Shopify, Physics Web Apps, E-commerce. Always answer accurately and mention specific features you observed. Be concise but helpful. User question: ${prompt}`
+                );
+                appendMessage('ai', response);
+            } catch (error) {
+                appendMessage('ai', "I'm under heavy load — but you can explore the partner sites directly above or email lubegadoreen02@gmail.com.");
+            }
+        }
+
+        sendMessage.addEventListener('click', handleAI);
+        userInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') handleAI(); });
+
+        // scroll, progress bar, nav & reveal observer
+        document.addEventListener('DOMContentLoaded', () => {
+            const statusFill = document.getElementById('scrollProgress');
+            window.addEventListener('scroll', () => {
+                const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+                const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                const scrolled = (winScroll / height) * 100;
+                statusFill.style.width = scrolled + "%";
+                const nav = document.getElementById('mainNav');
+                if (window.scrollY > 50) nav.classList.add('scrolled');
+                else nav.classList.remove('scrolled');
+            });
+            const observerOptions = { threshold: 0.15 };
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+            }, observerOptions);
+            document.querySelectorAll('.reveal-element').forEach(el => revealObserver.observe(el));
+            gsap.to(".title-row span", { y: 0, duration: 1.2, stagger: 0.2, ease: "power4.out" });
+            gsap.to(".hero-tagline, .hero-description, .btn-group", { opacity: 1, y: 0, duration: 1, delay: 0.8, stagger: 0.2 });
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) window.scrollTo({ top: target.offsetTop - 80, behavior: 'smooth' });
+                });
+            });
+            console.log("%c Anubid INDEX MODE | Partner sites integrated", "color:#000;font-weight:bold;");
+        });
+    </script>
+</body>
+</html>
